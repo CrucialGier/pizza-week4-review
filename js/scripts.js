@@ -2,7 +2,6 @@
 var size;
 var topping1;
 var topping2;
-
 var toppings = [];
 
 function Topping(name, url) {
@@ -23,15 +22,21 @@ function Pizza(size, topping1, topping2) {
   this.topping2 = topping2;
 }
 
+Pizza.prototype.createPizza = function() {
+  debugger;
 
-Pizza.prototype.topping1 = function(topping) {
-  return this.topping1 = topping;
+  if (topping1 === 0 && topping2 === 0) {
+    return this.result = "you want a " + this.size + " cheese pizza?";
+  } else if (topping2 === 0){
+    return this.result = "you want a " + this.size + " pizza with " + toppings[topping1].name + "?";
+  } else if (topping1 === 0){
+    return this.result = "you want a " + this.size + " pizza with " + toppings[topping2].name + "?";
+  } else if (topping1 === topping2) {
+    return this.result = "you want a " + this.size + " pizza with double " + toppings[topping1].name + "?";
+  } else {
+    return this.result = "you want a " + this.size + " pizza with " + toppings[topping1].name + " and " + toppings[topping2].name + "?";
+  }
 };
-
-Pizza.prototype.topping2 = function(topping) {
-  return this.topping2 = topping;
-};
-
 
 
 $(document).ready(function() {
@@ -48,8 +53,9 @@ $(document).ready(function() {
     event.preventDefault();
     debugger;
     var pizza = new Pizza(size, toppings[topping1], toppings[topping2]);
-    $("#sizeDisplay").append("<img src=''>");
-    $("#topping1Display").append("<img src='" + pizza.topping1.img + "'>");
-    $("#topping2Display").append("<img src='" + pizza.topping2.img + "'>");
+    pizza.createPizza();
+    $("#topping1Display").empty().append("<img src='" + pizza.topping1.img + "' alt=''>");
+    $("#topping2Display").empty().append("<img src='" + pizza.topping2.img + "' alt=''>");
+    $("#result").text(pizza.result);
   });
 });
