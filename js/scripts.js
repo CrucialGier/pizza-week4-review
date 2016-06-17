@@ -1,3 +1,4 @@
+
 var size;
 var topping1;
 var topping2;
@@ -17,9 +18,9 @@ var tomatoes = new Topping("tomatoes", "img/tomatoes.jpg");
 var artichokes = new Topping("artichokes", "img/artichokes.jpg");
 
 function Pizza(size, topping1, topping2) {
-  this.size;
-  this.topping1;
-  this.topping2;
+  this.size = size;
+  this.topping1 = topping1;
+  this.topping2 = topping2;
 }
 
 
@@ -45,6 +46,10 @@ $(document).ready(function() {
   });
   $("#getPizza").click(function(event) {
     event.preventDefault();
-    var pizza = new Pizza(size, topping1, topping2);
+    debugger;
+    var pizza = new Pizza(size, toppings[topping1], toppings[topping2]);
+    $("#sizeDisplay").append("<img src=''>");
+    $("#topping1Display").append("<img src='" + pizza.topping1.img + "'>");
+    $("#topping2Display").append("<img src='" + pizza.topping2.img + "'>");
   });
 });
