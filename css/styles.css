@@ -1,3 +1,7 @@
 .filler2 img {
   width: 30%;
 }
+
+#confirm {
+  display: none;
+}

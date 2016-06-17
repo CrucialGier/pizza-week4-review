@@ -56,6 +56,7 @@ $(document).ready(function() {
   $("#getPizza").click(function(event) {
     event.preventDefault();
     $("#price").empty();
+    $("#confirm").show();
     pizza = new Pizza(size, toppings[topping1], toppings[topping2]);
     pizza.createPizza();
     $("#topping1Display").empty().append("<img src='" + pizza.topping1.img + "' alt=''>");
