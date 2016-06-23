@@ -41,7 +41,6 @@ Pizza.prototype.getPrice = function() {
 $(document).ready(function() {
   var pizza;
   $("#getPizza").click(function(event) {
-    debugger;
     event.preventDefault();
     $("#price").empty();
     $("#confirm").show();
