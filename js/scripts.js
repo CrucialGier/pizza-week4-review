@@ -1,8 +1,3 @@
-
-var pizza;
-var size;
-var topping1;
-var topping2;
 var toppings = [];
 
 function Topping(name, url, price) {
@@ -26,45 +21,48 @@ function Pizza(size, topping1, topping2) {
 
 Pizza.prototype.createPizza = function() {
   if (topping1 === 0 && topping2 === 0) {
-    return this.result = "you want a " + this.size + " cheese pizza?";
+    return this.result = 0;
   } else if (topping2 === 0){
-    return this.result = "you want a " + this.size + " pizza with " + toppings[topping1].name + "?";
+    return this.result = 1;
   } else if (topping1 === 0){
-    return this.result = "you want a " + this.size + " pizza with " + toppings[topping2].name + "?";
+    return this.result = 2;
   } else if (topping1 === topping2) {
-    return this.result = "you want a " + this.size + " pizza with double " + toppings[topping1].name + "?";
+    return this.result = 3;
   } else {
-    return this.result = "you want a " + this.size + " pizza with " + toppings[topping1].name + " and " + toppings[topping2].name + "?";
+    return this.result = 4;
   }
 };
 
 Pizza.prototype.getPrice = function() {
-  return this.price = "Your order comes to a total of $" + (toppings[topping1].price + toppings[topping2].price + 10) + ".00. Thank you for dining with us!";
+  return this.price = "Your order comes to a total of $" + (this.topping1.price + this.topping2.price + 10) + ".00. Thank you for dining with us!";
 };
 
 
 $(document).ready(function() {
-  $("#size").change(function() {
-    size = $("#size").val();
-  });
-  $("#topping1").change(function() {
-    topping1 = parseInt($("#topping1").val())
-  });
-  $("#topping2").change(function() {
-    topping2 = parseInt($("#topping2").val())
-  });
+  var pizza;
   $("#getPizza").click(function(event) {
+    debugger;
     event.preventDefault();
     $("#price").empty();
     $("#confirm").show();
-    pizza = new Pizza(size, toppings[topping1], toppings[topping2]);
+    pizza = new Pizza($("#size").val(), toppings[parseInt($("#topping1").val())], toppings[parseInt($("#topping2").val())]);
     pizza.createPizza();
+    if (pizza.result === 0) {
+      $("#result").text("you want a " + this.size + " cheese pizza?");
+    } else if (pizza.result === 1) {
+      $("#result").text("you want a " + this.size + " pizza with " + pizza.topping1.name + "?");
+    } else if (pizza.result === 2) {
+      $("#result").text("you want a " + this.size + " pizza with " + pizza.topping2.name + "?");
+    } else if (pizza.result === 3) {
+      $("#result").text("you want a " + this.size + " pizza with double " + pizza.topping1.name + "?");
+    } else if (pizza.result === 4) {
+      $("#result").text("you want a " + this.size + " pizza with " + pizza.topping1.name + " and " + pizza.topping2.name + "?");
+    }
+    pizza.getPrice();
     $("#topping1Display").empty().append("<img src='" + pizza.topping1.img + "' alt=''>");
     $("#topping2Display").empty().append("<img src='" + pizza.topping2.img + "' alt=''>");
-    $("#result").text(pizza.result);
   });
   $("#confirm").click(function() {
-    pizza.getPrice();
     $("#price").text(pizza.price);
   });
 });
